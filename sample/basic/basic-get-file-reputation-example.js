@@ -1,25 +1,25 @@
 'use strict'
 
-var common = require('../common')
-var dxl = common.require('@opendxl/dxl-client')
-var MessageUtils = common.require('@opendxl/dxl-bootstrap').MessageUtils
-var tie = common.require('@opendxl/dxl-tie-client')
-var HashType = tie.HashType
-var TieClient = tie.TieClient
+const common = require('../common')
+const dxl = common.require('@opendxl/dxl-client')
+const MessageUtils = common.require('@opendxl/dxl-bootstrap').MessageUtils
+const tie = common.require('@opendxl/dxl-tie-client')
+const HashType = tie.HashType
+const TieClient = tie.TieClient
 
 // Create DXL configuration from file
-var config = dxl.Config.createDxlConfigFromFile(common.CONFIG_FILE)
+const config = dxl.Config.createDxlConfigFromFile(common.CONFIG_FILE)
 
 // Create the client
-var client = new dxl.Client(config)
+const client = new dxl.Client(config)
 
 // Connect to the fabric, supplying a callback function which is invoked
 // when the connection has been established
 client.connect(function () {
   // Create the McAfee Threat Intelligence Exchange (TIE) client
-  var tieClient = new TieClient(client)
+  const tieClient = new TieClient(client)
 
-  var notepadHashes = {}
+  const notepadHashes = {}
   notepadHashes[HashType.MD5] = 'f2c7bb8acc97f92e987a2d4087d021b1'
   notepadHashes[HashType.SHA1] = '7eb0139d2175739b3ccb0d1110067820be6abd29'
   notepadHashes[HashType.SHA256] = '142e1d688ef0568370c37187fd9f2351d7ddeda574f8bfa9b0fa4ef42db85aa2'
@@ -37,7 +37,7 @@ client.connect(function () {
         console.log('Notepad.exe reputations:')
         console.log(MessageUtils.objectToJson(notepadReputations, true) + '\n')
 
-        var eicarHashes = {}
+        const eicarHashes = {}
         eicarHashes[HashType.MD5] = '44d88612fea8a8f36de82e1278abb02f'
         eicarHashes[HashType.SHA1] = '3395856ce81f2b7382dee72602f798b642f14140'
         eicarHashes[HashType.SHA256] = '275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f'

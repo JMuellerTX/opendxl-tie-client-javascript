@@ -1,27 +1,27 @@
 'use strict'
 
-var common = require('../common')
-var dxl = common.require('@opendxl/dxl-client')
-var TieClient = common.require('@opendxl/dxl-tie-client').TieClient
-var MessageUtils = common.require('@opendxl/dxl-bootstrap').MessageUtils
+const common = require('../common')
+const dxl = common.require('@opendxl/dxl-client')
+const TieClient = common.require('@opendxl/dxl-tie-client').TieClient
+const MessageUtils = common.require('@opendxl/dxl-bootstrap').MessageUtils
 
 // Create DXL configuration from file
-var config = dxl.Config.createDxlConfigFromFile(common.CONFIG_FILE)
+const config = dxl.Config.createDxlConfigFromFile(common.CONFIG_FILE)
 
 // Create the client
-var client = new dxl.Client(config)
+const client = new dxl.Client(config)
 
 // Hashes for the certificate to look up
 // These can be replaced by a certificate which is known to have run within the
 // enterprise for better results
-var CERTIFICATE_BODY_SHA1 = '6eae26db8c13182a7947982991b4321732cc3de2'
-var CERTIFICATE_PUBLIC_KEY_SHA1 = '3b87a2d6f39770160364b79a152fcc73bae27adf'
+const CERTIFICATE_BODY_SHA1 = '6eae26db8c13182a7947982991b4321732cc3de2'
+const CERTIFICATE_PUBLIC_KEY_SHA1 = '3b87a2d6f39770160364b79a152fcc73bae27adf'
 
 // Connect to the fabric, supplying a callback function which is invoked
 // when the connection has been established
 client.connect(function () {
   // Create the McAfee Threat Intelligence Exchange (TIE) client
-  var tieClient = new TieClient(client)
+  const tieClient = new TieClient(client)
 
   // Request reputation for the certificate
   tieClient.getCertificateReputation(

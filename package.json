@@ -1,13 +1,13 @@
 {
   "name": "@opendxl/dxl-tie-client",
-  "version": "0.1.0",
-  "author": "McAfee, LLC",
-  "description": "McAfee Threat Intelligence Exchange (TIE) DXL client library",
+  "version": "0.1.1",
+  "author": "Musarubra US LLC",
+  "description": "Trellix Threat Intelligence Exchange (TIE) DXL client library",
   "license": "Apache-2.0",
   "keywords": [
     "opendxl",
     "dxl",
-    "mcafee",
+    "trellix",
     "client",
     "tie"
   ],
@@ -17,11 +17,11 @@
     "README.md"
   ],
   "engines": {
-    "node": ">=6.0.0"
+    "node": ">=16.0.0"
   },
   "dependencies": {
-    "@opendxl/dxl-client": "^0.0.1",
     "@opendxl/dxl-bootstrap": "^0.1.0",
+    "@opendxl/dxl-client": "^0.0.1",
     "inherits": "^2.0.3",
     "long": "^4.0.0",
     "safe-buffer": "^5.1.1"
@@ -29,12 +29,12 @@
   "devDependencies": {
     "archiver": "^2.1.1",
     "chai": "^4.1.2",
-    "jsdoc": "^3.5.5",
+    "jsdoc": "^4.0.3",
     "jshint": "^2.9.5",
-    "mocha": "^4.1.0",
+    "mocha": "^10.7.3",
     "rimraf": "^2.6.2",
     "snazzy": "^7.0.0",
-    "standard": "^10.0.3"
+    "standard": "^17.1.0"
   },
   "eslintConfig": {},
   "main": "index.js",
