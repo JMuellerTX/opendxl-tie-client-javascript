@@ -1,4 +1,4 @@
-# McAfee Threat Intelligence Exchange (TIE) DXL JavaScript Client Library
+# Trellix Threat Intelligence Exchange (TIE) DXL JavaScript Client Library
 [![Latest NPM Version](https://img.shields.io/npm/v/@opendxl/dxl-tie-client.svg)](https://www.npmjs.com/package/@opendxl/dxl-tie-client)
 [![Actions Status](https://github.com/opendxl/opendxl-tie-client-javascript/workflows/Build/badge.svg)](https://github.com/opendxl/opendxl-tie-client-javascript/actions)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
@@ -7,9 +7,9 @@
 ## Overview
 
 The
-[McAfee Threat Intelligence Exchange](http://www.mcafee.com/us/products/threat-intelligence-exchange.aspx) 
+[Trellix Threat Intelligence Exchange](https://www.trellix.com/products/threat-intelligence-exchange/) 
 (TIE) DXL JavaScript client library provides a high level wrapper for the TIE
-[Data Exchange Layer](http://www.mcafee.com/us/solutions/data-exchange-layer.aspx)
+[Data Exchange Layer](https://www.trellix.com/assets/docs/data-sheets/trellix-dataexchangelayer-datasheet.pdf)
 (DXL) API.
 
 The purpose of this library is to allow users to access the features of TIE
@@ -20,16 +20,16 @@ formats.
 ## Documentation
 
 See the [Wiki](https://github.com/opendxl/opendxl-tie-client-javascript/wiki)
-for an overview of the McAfee Threat Intelligence (TIE) DXL JavaScript client
+for an overview of the Trellix Threat Intelligence (TIE) DXL JavaScript client
 library and examples.
 
 See the
-[McAfee Threat Intelligence (TIE) DXL JavaScript Client Library Documentation](https://opendxl.github.io/opendxl-tie-client-javascript/jsdoc)
+[Trellix Threat Intelligence (TIE) DXL JavaScript Client Library Documentation](https://opendxl.github.io/opendxl-tie-client-javascript/jsdoc)
 for installation instructions, API documentation, and examples.
 
 ## Installation
 
-To start using the McAfee Threat Intelligence (TIE) DXL JavaScript Client
+To start using the Trellix Threat Intelligence (TIE) DXL JavaScript Client
 Library:
 
 * Download the [Latest Release](https://github.com/opendxl/opendxl-tie-client-javascript/releases/latest)
@@ -45,7 +45,7 @@ For bugs, questions and discussions please use the
 
 ## LICENSE
 
-Copyright 2018 McAfee, LLC
+Copyright 2024 Musarubra US LLC
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use
 this file except in compliance with the License. You may obtain a copy of the

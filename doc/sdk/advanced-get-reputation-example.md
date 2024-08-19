@@ -13,11 +13,11 @@ examine specific fields within the reputation responses.
 
 ### Running
 
-To run this sample execute the `sample/basic/advanced-get-reputation-example.js`
+To run this sample execute the `sample/advanced/advanced-get-reputation-example.js`
 script as follows:
 
 ```sh
-$ node sample/basic/advanced-get-reputation-example.js
+$ node sample/advanced/advanced-get-reputation-example.js
 ```
 
 The output should appear similar to the following:

@@ -1,18 +1,18 @@
 'use strict'
 
-var common = require('../common')
-var dxl = common.require('@opendxl/dxl-client')
-var MessageUtils = common.require('@opendxl/dxl-bootstrap').MessageUtils
-var TieClient = common.require('@opendxl/dxl-tie-client').TieClient
+const common = require('../common')
+const dxl = common.require('@opendxl/dxl-client')
+const MessageUtils = common.require('@opendxl/dxl-bootstrap').MessageUtils
+const TieClient = common.require('@opendxl/dxl-tie-client').TieClient
 
 // Create DXL configuration from file
-var config = dxl.Config.createDxlConfigFromFile(common.CONFIG_FILE)
+const config = dxl.Config.createDxlConfigFromFile(common.CONFIG_FILE)
 
 // Create the client
-var client = new dxl.Client(config)
+const client = new dxl.Client(config)
 
 // Define the callback to receive reputation change events
-var repChangeCallback = function (repChangeObj, originalEvent) {
+const repChangeCallback = function (repChangeObj, originalEvent) {
   // Display the DXL topic that the event was received on
   console.log('Reputation change on topic: ' +
     originalEvent.destinationTopic)
@@ -24,7 +24,7 @@ var repChangeCallback = function (repChangeObj, originalEvent) {
 // when the connection has been established
 client.connect(function () {
   // Create the McAfee Threat Intelligence Exchange (TIE) client
-  var tieClient = new TieClient(client)
+  const tieClient = new TieClient(client)
 
   // Register callbacks with client to receive both file and certificate
   // reputation change events

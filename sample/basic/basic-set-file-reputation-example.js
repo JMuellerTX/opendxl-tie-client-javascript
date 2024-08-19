@@ -1,30 +1,30 @@
 'use strict'
 
-var common = require('../common')
-var dxl = common.require('@opendxl/dxl-client')
-var tie = common.require('@opendxl/dxl-tie-client')
-var HashType = tie.HashType
-var TieClient = tie.TieClient
-var TrustLevel = tie.TrustLevel
+const common = require('../common')
+const dxl = common.require('@opendxl/dxl-client')
+const tie = common.require('@opendxl/dxl-tie-client')
+const HashType = tie.HashType
+const TieClient = tie.TieClient
+const TrustLevel = tie.TrustLevel
 
 // Create DXL configuration from file
-var config = dxl.Config.createDxlConfigFromFile(common.CONFIG_FILE)
+const config = dxl.Config.createDxlConfigFromFile(common.CONFIG_FILE)
 
 // Create the client
-var client = new dxl.Client(config)
+const client = new dxl.Client(config)
 
 // Hashes for the file whose reputation should be set. These use the hashes for
 // notepad.exe by default but could be replaced with appropriate values for the
 // file whose reputation should be set.
-var FILE_MD5 = 'f2c7bb8acc97f92e987a2d4087d021b1'
-var FILE_SHA1 = '7eb0139d2175739b3ccb0d1110067820be6abd29'
-var FILE_SHA256 = '142e1d688ef0568370c37187fd9f2351d7ddeda574f8bfa9b0fa4ef42db85aa2'
+const FILE_MD5 = 'f2c7bb8acc97f92e987a2d4087d021b1'
+const FILE_SHA1 = '7eb0139d2175739b3ccb0d1110067820be6abd29'
+const FILE_SHA256 = '142e1d688ef0568370c37187fd9f2351d7ddeda574f8bfa9b0fa4ef42db85aa2'
 
 // Connect to the fabric, supplying a callback function which is invoked
 // when the connection has been established
 client.connect(function () {
-  var tieClient = new TieClient(client)
-  var hashes = {}
+  const tieClient = new TieClient(client)
+  const hashes = {}
   hashes[HashType.MD5] = FILE_MD5
   hashes[HashType.SHA1] = FILE_SHA1
   hashes[HashType.SHA256] = FILE_SHA256
