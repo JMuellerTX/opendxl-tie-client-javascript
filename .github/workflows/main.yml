@@ -35,7 +35,7 @@ jobs:
         # The published @opendxl/dxl-client 0.1.4 pulls mqtt 2.x and with it the ws advisories.
         # Replace it with the fork's release tarball: --no-save leaves package.json alone, and
         # +fork.1 is semver build metadata, so it still satisfies the declared range.
-        npm install --no-save "https://github.com/derjochenmueller/opendxl-client-javascript/releases/download/v0.1.4%2Bfork.1/opendxl-dxl-client-0.1.4%2Bfork.1.tgz"
+        npm install --no-save "https://github.com/JMuellerTX/opendxl-client-javascript/releases/download/v0.1.4%2Bfork.1/opendxl-dxl-client-0.1.4%2Bfork.1.tgz"
         
     - name: Execute CI
       run: |
