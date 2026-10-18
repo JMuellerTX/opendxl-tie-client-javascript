@@ -95,6 +95,7 @@ describe('TieClient event callbacks', function () {
 
     const legitEvent = new dxl.Event(detectionTopic)
     legitEvent.sourceClientId = 'ABC5D2C6-E959-11E3-BAEB-005056C00009:inst-1'
+    legitEvent.otherFields['dxl.certs'] = 'ca_thumb;435dfd470f727437c7cb4f07cba1f9a1f4272656'
     MessageUtils.objectToJsonPayload(legitEvent, {
       agentGuid: '{abc5d2c6-e959-11e3-baeb-005056c00009}',
       name: 'LEGIT.EXE'
@@ -102,5 +103,38 @@ describe('TieClient event callbacks', function () {
     dxlClient.registered[detectionTopic][0](legitEvent)
     expect(received).to.have.lengthOf(1)
     expect(received[0].name).to.equal('LEGIT.EXE')
+
+    // (a) Missing, empty, '{}', or ':foo' agentGuid must fail closed when verifySource is true
+    const invalidGuids = [undefined, '', '{}', ':foo', 12345]
+    invalidGuids.forEach(function (badGuid) {
+      const badEvent = new dxl.Event(detectionTopic)
+      badEvent.sourceClientId = '{abc5d2c6-e959-11e3-baeb-005056c00009}'
+      const body = { name: 'BYPASS.EXE' }
+      if (typeof badGuid !== 'undefined') {
+        body.agentGuid = badGuid
+      }
+      MessageUtils.objectToJsonPayload(badEvent, body)
+      dxlClient.registered[detectionTopic][0](badEvent)
+    })
+    expect(received).to.have.lengthOf(1)
+
+    // (c) Match via dxl.certs leaf thumbprint
+    const certEvent = new dxl.Event(detectionTopic)
+    certEvent.sourceClientId = '{99999999-8888-7777-6666-555555555555}'
+    certEvent.otherFields['dxl.certs'] = 'root_ca;435DFD470F727437C7CB4F07CBA1F9A1F4272656'
+    MessageUtils.objectToJsonPayload(certEvent, {
+      agentGuid: '435dfd470f727437c7cb4f07cba1f9a1f4272656',
+      name: 'CERT_MATCH.EXE'
+    })
+    dxlClient.registered[detectionTopic][0](certEvent)
+    expect(received).to.have.lengthOf(2)
+    expect(received[1].name).to.equal('CERT_MATCH.EXE')
+
+    // Malformed / non-object JSON payload must not throw
+    const badJsonEvent = new dxl.Event(detectionTopic)
+    badJsonEvent.payload = '["not-an-object"]'
+    expect(function () {
+      dxlClient.registered[detectionTopic][0](badJsonEvent)
+    }).to.not.throw()
   })
 })
