@@ -73,4 +73,34 @@ describe('TieClient event callbacks', function () {
     tieClient2.removeFileDetectionCallback(sharedCallback)
     expect(dxlClient2.registered[detectionTopic]).to.be.empty
   })
+
+  it('drops events with mismatched agentGuid when verifySource is enabled', function () {
+    const dxlClient = createMockDxlClient()
+    const tieClient = new TieClient(dxlClient)
+    const received = []
+
+    tieClient.addFileDetectionCallback(function (payload) {
+      received.push(payload)
+    }, true)
+
+    const detectionTopic = '/mcafee/event/tie/file/detection'
+    const spoofedEvent = new dxl.Event(detectionTopic)
+    spoofedEvent.sourceClientId = '{11111111-2222-3333-4444-555555555555}'
+    MessageUtils.objectToJsonPayload(spoofedEvent, {
+      agentGuid: '{abc5d2c6-e959-11e3-baeb-005056c00009}',
+      name: 'SPOOFED.EXE'
+    })
+    dxlClient.registered[detectionTopic][0](spoofedEvent)
+    expect(received).to.be.empty
+
+    const legitEvent = new dxl.Event(detectionTopic)
+    legitEvent.sourceClientId = 'ABC5D2C6-E959-11E3-BAEB-005056C00009:inst-1'
+    MessageUtils.objectToJsonPayload(legitEvent, {
+      agentGuid: '{abc5d2c6-e959-11e3-baeb-005056c00009}',
+      name: 'LEGIT.EXE'
+    })
+    dxlClient.registered[detectionTopic][0](legitEvent)
+    expect(received).to.have.lengthOf(1)
+    expect(received[0].name).to.equal('LEGIT.EXE')
+  })
 })
