@@ -104,8 +104,8 @@ describe('TieClient event callbacks', function () {
     expect(received).to.have.lengthOf(1)
     expect(received[0].name).to.equal('LEGIT.EXE')
 
-    // (a) Missing, empty, '{}', or ':foo' agentGuid must fail closed when verifySource is true
-    const invalidGuids = [undefined, '', '{}', ':foo', 12345]
+    // (a) Missing, empty, '{}', or ':victim' agentGuid must fail closed when verifySource is true
+    const invalidGuids = [undefined, '', '{}', ':foo', ':victim', 12345]
     invalidGuids.forEach(function (badGuid) {
       const badEvent = new dxl.Event(detectionTopic)
       badEvent.sourceClientId = '{abc5d2c6-e959-11e3-baeb-005056c00009}'
@@ -118,6 +118,19 @@ describe('TieClient event callbacks', function () {
     })
     expect(received).to.have.lengthOf(1)
 
+    // (b) Match via broker-stamped sourceClientInstanceId ('<cert_sha1>:{<client_uuid>}')
+    const brokerEvent = new dxl.Event(detectionTopic)
+    brokerEvent.sourceClientId = '65e7960d7bd6b5b7085f9928f8b2374351ca66fb'
+    brokerEvent.sourceClientInstanceId =
+      '65e7960d7bd6b5b7085f9928f8b2374351ca66fb:{abc5d2c6-e959-11e3-baeb-005056c00009}'
+    MessageUtils.objectToJsonPayload(brokerEvent, {
+      agentGuid: '{abc5d2c6-e959-11e3-baeb-005056c00009}',
+      name: 'BROKER_INSTANCE_MATCH.EXE'
+    })
+    dxlClient.registered[detectionTopic][0](brokerEvent)
+    expect(received).to.have.lengthOf(2)
+    expect(received[1].name).to.equal('BROKER_INSTANCE_MATCH.EXE')
+
     // (c) Match via dxl.certs leaf thumbprint
     const certEvent = new dxl.Event(detectionTopic)
     certEvent.sourceClientId = '{99999999-8888-7777-6666-555555555555}'
@@ -127,8 +140,8 @@ describe('TieClient event callbacks', function () {
       name: 'CERT_MATCH.EXE'
     })
     dxlClient.registered[detectionTopic][0](certEvent)
-    expect(received).to.have.lengthOf(2)
-    expect(received[1].name).to.equal('CERT_MATCH.EXE')
+    expect(received).to.have.lengthOf(3)
+    expect(received[2].name).to.equal('CERT_MATCH.EXE')
 
     // Malformed / non-object JSON payload must not throw
     const badJsonEvent = new dxl.Event(detectionTopic)
